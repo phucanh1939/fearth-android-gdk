@@ -71,9 +71,29 @@ publishing {
             groupId = providers.gradleProperty("lib.group").get()
             artifactId = providers.gradleProperty("lib.artifact").get()
             version = providers.gradleProperty("lib.version").get()
-            artifact("${layout.buildDirectory}/outputs/aar/${providers.gradleProperty("lib.name").get()}-release.aar")
+            artifact(layout.buildDirectory.file("outputs/aar/${providers.gradleProperty("lib.name").get()}-release.aar"))
             pom.withXml {
-                val dependenciesNode = asNode().appendNode("dependencies")
+                val rootNode = asNode()
+
+                // Fetch repository list from extra properties
+                val repoList = (project.extensions.extraProperties["repoList"] as? List<String>)
+                    ?.filterNot { repo ->
+                        repo.contains("dl.google.com") || repo.contains("repo.maven.apache.org")
+                    } ?: emptyList()
+
+                // Debug output
+                println("📌 build.gradle.kts - Found Repositories:")
+                repoList.forEach { println(" - $it") }
+
+                // Add repositories to POM
+                val repositoriesNode = rootNode.appendNode("repositories")
+                repoList.forEach { repo ->
+                    val repositoryNode = repositoriesNode.appendNode("repository")
+                    repositoryNode.appendNode("url", repo)
+                }
+
+                // Add dependencies dynamically
+                val dependenciesNode = rootNode.appendNode("dependencies")
                 configurations.implementation.get().dependencies.forEach { dependency ->
                     if (dependency.group != null && dependency.version != null) {
                         val dependencyNode = dependenciesNode.appendNode("dependency")

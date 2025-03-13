@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":gdk"))
+    implementation(project(":fearthgdk"))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)

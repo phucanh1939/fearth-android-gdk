@@ -42,6 +42,20 @@ dependencyResolutionManagement {
     }
 }
 
+// Store repositories in Gradle properties
+gradle.beforeProject {
+    val repoList = dependencyResolutionManagement.repositories
+        .filterIsInstance<MavenArtifactRepository>()
+        .map { it.url.toString() }
+
+    // Store as a Gradle property
+    project.extensions.extraProperties.set("repoList", repoList)
+
+    // Debug output
+    println("📌 settings.gradle.kts - Found Repositories:")
+    repoList.forEach { println(" - $it") }
+}
+
 rootProject.name = "FearthAndroidGDK"
-include(":gdk")
+include(":fearthgdk")
 include(":sample")
