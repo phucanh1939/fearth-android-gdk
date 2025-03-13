@@ -52,7 +52,7 @@ gradle.beforeProject {
     project.extensions.extraProperties.set("repoList", repoList)
 
     // Debug output
-    println("📌 settings.gradle.kts - Found Repositories:")
+    println("settings.gradle.kts - Found Repositories:")
     repoList.forEach { println(" - $it") }
 }
 

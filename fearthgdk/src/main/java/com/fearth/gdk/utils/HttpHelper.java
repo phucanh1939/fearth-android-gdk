@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
-public class FearthHttpHelper {
+public class HttpHelper {
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final String TAG = "FearthHttpHelper";

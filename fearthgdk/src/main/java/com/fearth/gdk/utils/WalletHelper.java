@@ -7,8 +7,8 @@ import wallet.core.jni.EthereumMessageSigner;
 import wallet.core.jni.HDWallet;
 import wallet.core.jni.PrivateKey;
 
-public class FearthWalletHelper {
-    private static final String TAG = "WalletHelper";
+public class WalletHelper {
+    private static final String TAG = "FearthGdk";
 
     static {
         System.loadLibrary("TrustWalletCore");

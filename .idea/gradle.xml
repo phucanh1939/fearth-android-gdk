@@ -10,7 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/gdk" />
+            <option value="$PROJECT_DIR$/fearthgdk" />
             <option value="$PROJECT_DIR$/sample" />
           </set>
         </option>

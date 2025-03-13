@@ -3,10 +3,12 @@ package com.fearth.gdk.sample;
 import android.os.Bundle;
 
 import com.fearth.gdk.FearthGdk;
+import com.fearth.gdk.data.GdkConfig;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -40,8 +42,15 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FearthGdk.getInstance().testHttp();
-                FearthGdk.getInstance().testWallet();
+                var config = new GdkConfig();
+                config.id = 1;
+                config.name = "test_game";
+                var gdk = FearthGdk.getInstance();
+                gdk.initialize(config, errorCode -> {
+                    Log.d("FearthGdk", "init done, errorCode: " + errorCode);
+                });
+                var wallet = gdk.createWallet();
+                Log.d("FearthGdk", "create wallet: " + wallet);
             }
         });
 
